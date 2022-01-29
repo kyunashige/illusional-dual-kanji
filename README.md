@@ -19,6 +19,9 @@ usage: main.py [-h] [--resolution RESOLUTION] [--use_mirror] [--image_paths [IMA
                object_name_or_path
 ```
 
+-   `object_name_or_path`
+    -   Requires the name of the object to be used as the name of the output files.
+    -   If `object_name_or_path` ends with the extension `.stl`, this program will load the specified file instead of creating a new object.
 -   To select two or three in total
     -   Image
         -   `--image_paths [IMAGE_PATHS ...]`
