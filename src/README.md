@@ -69,7 +69,7 @@ The difference between mesh.py and voxel.py is that mesh.py changes colors depen
 python src/mesh.py MC --color_coded
 ```
 
-<img src="../assets/voxel-MC.png" width="300">
+<img src="../assets/mesh-MC.png" width="300">
 
 ### Example: NLP
 
@@ -77,4 +77,4 @@ python src/mesh.py MC --color_coded
 python src/mesh.py NLP --color_coded
 ```
 
-<img src="../assets/voxel-NLP.png" width="300">
+<img src="../assets/mesh-NLP.png" width="300">
