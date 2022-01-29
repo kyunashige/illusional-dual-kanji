@@ -56,21 +56,24 @@ python main.py celebration-star \
     --save_fig
 ```
 
-<img src="assets/celebration-star.png" width="300">
+| w/o `--color_coded`                                      | w/ `--color_coded`                                             |
+| -------------------------------------------------------- | -------------------------------------------------------------- |
+| <img src="assets/main-celebration-star.png" width="300"> | <img src="assets/main-celebration-star-color.png" width="300"> |
 
 ### Three characters: N, L and P
 
 ```shell
 python main.py NLP \
     --resolution 64 \
-    --chars N L P \
-    --font_path '/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc' \
+    --chars Ｎ Ｌ Ｐ \
+    --font_path '/System/Library/Fonts/ヒラギノ角ゴシック W9.ttc' \
     --render \
-    --color_coded \
     --save_fig
 ```
 
-<img src="assets/NLP.png" width="300">
+| w/o `--color_coded`                         | w/ `--color_coded`                                |
+| ------------------------------------------- | ------------------------------------------------- |
+| <img src="assets/main-NLP.png" width="300"> | <img src="assets/main-NLP-color.png" width="300"> |
 
 ### Two images: Pickaxe and Sword
 
@@ -85,4 +88,6 @@ python main.py pickaxe-sword \
     --save_fig
 ```
 
-<img src="assets/pickaxe-sword.png" width="300">
+| w/o `--color_coded`                                   | w/ `--color_coded`                                          |
+| ----------------------------------------------------- | ----------------------------------------------------------- |
+| <img src="assets/main-pickaxe-sword.png" width="300"> | <img src="assets/main-pickaxe-sword-color.png" width="300"> |
