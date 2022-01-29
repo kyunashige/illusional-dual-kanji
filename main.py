@@ -45,9 +45,9 @@ def get_faces(args):
     if len(args.image_paths) + len(args.chars) not in [2, 3]:
         raise Exception("Please select two or three in total.")
 
-    return [
-        image_to_face(image_path, keep_aspect_ratio=True) for image_path in args.image_paths
-    ] + [char_to_face(char, args.font_path, keep_aspect_ratio=True) for char in args.chars]
+    faces = [image_to_face(image_path) for image_path in args.image_paths]
+    faces += [char_to_face(char, args.font_path) for char in args.chars]
+    return faces
 
 
 if __name__ == "__main__":

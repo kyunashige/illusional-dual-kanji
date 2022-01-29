@@ -41,7 +41,7 @@ class Face:
 
 
 def char_to_face(char, font_path, *, size=256, keep_aspect_ratio=False):
-    img = Image.new("L", (size, size))
+    img = Image.new("L", (size * len(char), size))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(font_path, size)
     draw.text((0, 0), char, fill=1, font=font)
