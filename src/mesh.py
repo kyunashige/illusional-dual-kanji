@@ -94,17 +94,7 @@ class IllusionalMesh(IllusionalVoxels):
         ax.auto_scale_xyz(scale, scale, scale)
 
     def __getitem__(self, i):
-        if self.path:
-            return True, self.views[i]
-        else:
-            if i == 0:
-                return self.has_cube1, self.views[0]
-            elif i == 1:
-                return self.has_cube2, self.views[1]
-            elif i == 2:
-                return self.has_cube3, self.views[2]
-            else:
-                raise IndexError
+        return self.views[i]
 
     def visualize(self):
         plt.figure(figsize=(6, 9))
@@ -116,9 +106,7 @@ class IllusionalMesh(IllusionalVoxels):
             ax.set_title(f"use_mirror: {self.use_mirror}")
         self.__visualize(ax)
 
-        for i, (exists, d) in enumerate(self):
-            if not exists:
-                continue
+        for i, d in enumerate(self):
             ax = plt.subplot2grid((3, 3), (2, i), projection="3d")
             self._get_modified_axes(ax, d)
             self.__visualize(ax)
@@ -133,9 +121,15 @@ class IllusionalMesh(IllusionalVoxels):
 if __name__ == "__main__":
     from voxel import choose_sample_iv
 
-    im = IllusionalMesh(choose_sample_iv())
+    iv, save_fig = choose_sample_iv()
+    im = IllusionalMesh(iv)
     if im.color_coded:
         im.visualize()
-        plt.show()
+        if save_fig:
+            fig_name = save_fig
+            plt.savefig(fig_name)
+            print("Saved:", fig_name)
+        else:
+            plt.show()
     else:
         im.save()

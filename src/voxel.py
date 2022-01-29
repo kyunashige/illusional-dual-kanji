@@ -92,11 +92,10 @@ class IllusionalVoxels:
         ax.set_title(f"use_mirror: {self.use_mirror}")
 
         for i, (exists, cube, d) in enumerate(self):
-            if not exists:
-                continue
-            ax_before = plt.subplot2grid((4, 3), (2, i), projection="3d")
-            self._get_modified_axes(ax_before)
-            ax_before.voxels(cube)
+            if exists:
+                ax_before = plt.subplot2grid((4, 3), (2, i), projection="3d")
+                self._get_modified_axes(ax_before)
+                ax_before.voxels(cube)
             ax_after = plt.subplot2grid((4, 3), (3, i), projection="3d")
             self._get_modified_axes(ax_after, d)
             if self.color_coded:
@@ -114,6 +113,7 @@ def choose_sample_iv():
     parser.add_argument("--resolution", "-r", type=int, default=23)
     parser.add_argument("--font_path", default="/System/Library/Fonts/ヒラギノ角ゴシック W9.ttc")
     parser.add_argument("--color_coded", "-c", action="store_true")
+    parser.add_argument("--save_fig", "-s", default="")
     args = parser.parse_args()
 
     if args.sample_name == "MC":
@@ -132,10 +132,16 @@ def choose_sample_iv():
             color_coded=args.color_coded,
         )
 
-    return iv
+    return iv, args.save_fig
 
 
 if __name__ == "__main__":
 
-    choose_sample_iv().visualize()
-    plt.show()
+    iv, save_fig = choose_sample_iv()
+    iv.visualize()
+    if save_fig:
+        fig_name = save_fig
+        plt.savefig(fig_name)
+        print("Saved:", fig_name)
+    else:
+        plt.show()

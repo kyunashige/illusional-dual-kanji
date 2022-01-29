@@ -65,6 +65,8 @@ def image_to_face(image_path, *, mode="less", th=254, keep_aspect_ratio=True):
 
 
 if __name__ == "__main__":
+    import sys
+
     font_path = "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
 
     ax1 = plt.subplot(1, 2, 1)
@@ -74,4 +76,9 @@ if __name__ == "__main__":
     ax2 = plt.subplot(1, 2, 2)
     image_to_face("img/Diamond_Pickaxe_JE3_BE3.png", mode="greater", th=1).render(ax2)
 
-    plt.show()
+    if len(sys.argv) > 1:
+        fig_name = sys.argv[1]
+        plt.savefig(fig_name)
+        print("Saved:", fig_name)
+    else:
+        plt.show()

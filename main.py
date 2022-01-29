@@ -17,11 +17,11 @@ def get_parser():
     parser = argparse.ArgumentParser(
         description="Create a curious object whose appearance changes in the mirror.",
     )
-    parser.add_argument("object_name_or_path", type=str)
+    parser.add_argument("object_name_or_path")
     parser.add_argument("--resolution", "-r", type=int, default=64)
     parser.add_argument("--use_mirror", "-m", action="store_true")
     parser.add_argument("--image_paths", "-I", nargs="*", default=[])
-    parser.add_argument("--chars", "-C", nargs="*", type=str, default=[])
+    parser.add_argument("--chars", "-C", nargs="*", default=[])
     parser.add_argument(
         "--font_path", "-f", default="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc", type=exists_path
     )
