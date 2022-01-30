@@ -57,5 +57,3 @@ function task_w_color() {
 task_src
 task_wo_color
 task_w_color
-
-rm assets/*.stl
