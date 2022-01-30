@@ -3,7 +3,7 @@ set -eu
 
 function task_src() {
     echo "Task: src"
-    python src/face.py assets/face.png
+    python src/face.py -s assets/face.png
     python src/voxel.py MC -s assets/voxel-MC.png
     python src/voxel.py NLP --color_coded -s assets/voxel-NLP.png
     python src/mesh.py MC --color_coded -s assets/mesh-MC.png

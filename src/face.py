@@ -65,19 +65,25 @@ def image_to_face(image_path, *, mode="less", th=254, keep_aspect_ratio=True):
 
 
 if __name__ == "__main__":
-    import sys
+    import argparse
 
-    font_path = "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--resolution", "-r", type=int, default=23)
+    parser.add_argument("--char", "-C", default="祝")
+    parser.add_argument("--font_path", "-f", default="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc")
+    parser.add_argument("--image_path", "-I", default="img/Diamond_Pickaxe_JE3_BE3.png@ge1")
+    parser.add_argument("--save_fig", "-s", default="")
+    args = parser.parse_args()
 
     ax1 = plt.subplot(1, 2, 1)
-    char_to_face("祝", font_path).render(ax1)
+    char_to_face(args.char, args.font_path).resize(args.resolution).render(ax1)
 
     # from: https://minecraft.fandom.com/wiki/Pickaxe
     ax2 = plt.subplot(1, 2, 2)
-    image_to_face("img/Diamond_Pickaxe_JE3_BE3.png", mode="greater", th=1).render(ax2)
+    image_to_face(args.image_path).resize(args.resolution).render(ax2)
 
-    if len(sys.argv) > 1:
-        fig_name = sys.argv[1]
+    if args.save_fig:
+        fig_name = args.save_fig
         plt.savefig(fig_name)
         print("Saved:", fig_name)
     else:
