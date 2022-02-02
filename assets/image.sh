@@ -4,6 +4,10 @@ set -eu
 function task_src() {
     echo "Task: src"
     python src/face.py -s assets/face.png
+    python src/face.py -s assets/face-inv.png \
+        --resolution 36 \
+        --char A --char_inv \
+        --image_path img/Diamond_Sword_JE3_BE3.png@le1@border2
     python src/voxel.py MC -s assets/voxel-MC.png
     python src/voxel.py NLP --color_coded -s assets/voxel-NLP.png
     python src/mesh.py MC --color_coded -s assets/mesh-MC.png
