@@ -43,8 +43,9 @@ def get_path(name_or_parh):
 
 
 def get_faces(args):
-    if 1 <= len(args.image_paths) + len(args.chars) <= 3:
-        raise Exception("Choose between 1 and 3 images or characters in total.")
+    assert (
+        1 <= len(args.image_paths) + len(args.chars) <= 3
+    ), "Choose between 1 and 3 images or characters in total."
 
     faces = [image_to_face(image_path) for image_path in args.image_paths]
     faces += [
