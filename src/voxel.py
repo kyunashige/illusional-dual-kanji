@@ -110,25 +110,31 @@ def choose_sample_iv():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("sample_name", type=str, choices=["MC", "NLP"])
-    parser.add_argument("--resolution", "-r", type=int, default=23)
+    parser.add_argument("--resolution", "-r", type=int, default=32)
     parser.add_argument("--font_path", default="/System/Library/Fonts/ヒラギノ角ゴシック W9.ttc")
+    parser.add_argument("--char_inv", "-i", action="store_true")
     parser.add_argument("--color_coded", "-c", action="store_true")
-    parser.add_argument("--save_fig", "-s", default="")
+    parser.add_argument("--save_fig", "-s", default="", metavar="OUTPUT_PATH")
     args = parser.parse_args()
 
     if args.sample_name == "MC":
         iv = IllusionalVoxels(size=args.resolution, use_mirror=True, name="MC").build(
             # borrowed from https://minecraft.fandom.com/wiki/Pickaxe
-            face1=image_to_face("img/Diamond_Pickaxe_JE3_BE3.png", mode="greater", th=1),
+            face1=image_to_face("img/Diamond_Pickaxe_JE3_BE3.png@ge1"),
             # borrowed from https://minecraft.fandom.com/wiki/Sword
             face2=image_to_face("img/Diamond_Sword_JE3_BE3.png", mode="greater", th=1),
             color_coded=args.color_coded,
         )
     else:
+        kwargs = {
+            "font_path": args.font_path,
+            "size": args.resolution,
+            "char_inv": args.char_inv,
+        }
         iv = IllusionalVoxels(size=args.resolution, use_mirror=False, name="NLP").build(
-            face1=char_to_face("N", args.font_path, keep_aspect_ratio=False),
-            face2=char_to_face("L", args.font_path, keep_aspect_ratio=False),
-            face3=char_to_face("P", args.font_path, keep_aspect_ratio=False),
+            face1=char_to_face("N", **kwargs),
+            face2=char_to_face("L", **kwargs),
+            face3=char_to_face("P", **kwargs),
             color_coded=args.color_coded,
         )
 

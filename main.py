@@ -25,6 +25,7 @@ def get_parser():
     parser.add_argument(
         "--font_path", "-f", default="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc", type=exists_path
     )
+    parser.add_argument("--char_inv", "-i", action="store_true")
     parser.add_argument("--render", "-v", action="store_true")
     parser.add_argument("--color_coded", "-c", action="store_true")
     parser.add_argument("--save_fig", "-s", action="store_true")
@@ -42,11 +43,18 @@ def get_path(name_or_parh):
 
 
 def get_faces(args):
-    if len(args.image_paths) + len(args.chars) not in [2, 3]:
-        raise Exception("Please select two or three in total.")
+    if 1 <= len(args.image_paths) + len(args.chars) <= 3:
+        raise Exception("Choose between 1 and 3 images or characters in total.")
 
     faces = [image_to_face(image_path) for image_path in args.image_paths]
-    faces += [char_to_face(char, args.font_path) for char in args.chars]
+    faces += [
+        char_to_face(
+            char,
+            args.font_path,
+            char_inv=args.char_inv,
+        )
+        for char in args.chars
+    ]
     return faces
 
 

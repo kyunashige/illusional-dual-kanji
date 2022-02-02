@@ -13,37 +13,42 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-usage: main.py [-h] [--resolution RESOLUTION] [--use_mirror] [--image_paths [IMAGE_PATHS ...]]
-               [--chars [CHARS ...]] [--font_path FONT_PATH] [--render] [--color_coded]
-               [--save_fig]
+usage: main.py [-h] [--resolution RESOLUTION] [--use_mirror]
+               [--image_paths [IMAGE_PATHS ...]]
+               [--chars [CHARS ...]] [--font_path FONT_PATH] [--char_inv]
+               [--render] [--color_coded] [--save_fig]
                object_name_or_path
 ```
 
--   `object_name_or_path`
-    -   Requires the name of the object to be used as the name of the output files.
-    -   If `object_name_or_path` ends with the extension `.stl`, this program will load the specified file instead of creating a new object.
--   To select two or three in total
+-   To set common parameters
+    -   `object_name_or_path`
+        -   Requires the name of the object to be used as the name of the output files.
+        -   If `object_name_or_path` ends with the extension `.stl`, this program will load the STL file instead of creating a new object.
+    -   `--resolution RESOLUTION`
+    -   `--use_mirror`
+        -   Reverses the top face.
+-   To choose between 1 and 3 images or characters in total
     -   Image
         -   `--image_paths [IMAGE_PATHS ...]`
             -   You can specify multiple paths separated by spaces.
-            -   Each path can be suffixed with a suffix for the instruction to be binarized:
+            -   Each path can be suffixed with the instruction to be binarized:
                 -   e.g. `@ge30`
                     -   After converting the image to grayscale, keep only those pixels that are greater than 30.
                 -   e.g. `@le128`
                     -   After converting the image to grayscale, keep only those pixels that are less than 128.
+                -   e.g. `@border4`
+                    -   Add a border of width 4.
     -   Character
         -   `--chars [CHARS ...]`
             -   You can specify multiple characters separated by spaces.
         -   `--font_path FONT_PATH`
--   Options
-    -   `--resolution RESOLUTION`
-    -   `--use_mirror`
-        -   Reverse the top face.
--   To visialize (after saving the stl file)
+        -   `--char_inv`
+            -   Inverts whether the pixel is kept or not.
+-   To visialize (after saving the STL file)
     -   `--render`
-        -   Render the generated object.
+        -   Renders the generated object.
     -   `--color_coded`
-        -   Separate the parts by color.
+        -   Separates the parts by color (if the stl file is not loaded).
     -   `--save_fig`
 
 ## Gallery

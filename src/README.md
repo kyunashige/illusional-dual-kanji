@@ -3,34 +3,61 @@
 Here are two examples of how it works:
 
 -   `MC`
-    -   This is an example of using two images of a pickaxe and a sword.
+    -   An example of using two images of a pickaxe and a sword.
     -   These images need to be borrowed from https://minecraft.fandom.com/wiki.
         -   "img/Diamond_Pickaxe_JE3_BE3.png" from https://minecraft.fandom.com/wiki/Pickaxe
         -   "img/Diamond_Sword_JE3_BE3.png" from https://minecraft.fandom.com/wiki/Sword
 -   `NLP`
-    -   This is an example of using the three letters N, L, and P.
+    -   An example of using the three letters N, L, and P.
 
 ## face.py
 
-It is useful to see how images and text will be displayed.
+Helps to see how images and text will be displayed.
 
 ### Usage
 
+```
+usage: face.py [-h] [--resolution RESOLUTION]
+               [--char CHAR] [--font_path FONT_PATH] [--char_inv]
+               [--image_path IMAGE_PATH]
+               [--save_fig OUTPUT_PATH]
+```
+
+Note that only one character and one image can be specified at a time.
+
+### Example: Default parameters
+
 ```shell
+# python src/face.py --char A --image_path img/Diamond_Sword_JE3_BE3.png@ge1
 python src/face.py
 ```
 
 <img src="../assets/face.png" width="300">
 
+### Example: Inverted version
+
+```shell
+python src/face.py --resolution 36 \
+    --char A --char_inv \
+    --image_path img/Diamond_Sword_JE3_BE3.png@le1@border2
+```
+
+<img src="../assets/face-inv.png" width="300">
+
 ## voxel.py
 
-It helps to observe the generated object.
+Helps to observe the generated object.
 
 ### Usage
 
 ```
-usage: voxel.py [-h] [--resolution RESOLUTION] [--font_path FONT_PATH] [--color_coded] {MC,NLP}
+usage: voxel.py [-h] [--resolution RESOLUTION]
+                [--font_path FONT_PATH] [--char_inv]
+                [--color_coded] [--save_fig OUTPUT_PATH]
+                {MC,NLP}
 ```
+
+If `--color_coded` is specified, the color will be changed for each part.
 
 ### Example: MC
 
@@ -41,8 +68,6 @@ python src/voxel.py MC
 <img src="../assets/voxel-MC.png" width="300">
 
 ### Example: NLP
-
-Change colors for each part.
 
 ```shell
 python src/voxel.py NLP --color_coded
@@ -57,11 +82,14 @@ Saves and renders the generated object.
 ### Usage
 
 ```
-usage: mesh.py [-h] [--resolution RESOLUTION] [--font_path FONT_PATH] [--color_coded] {MC,NLP}
+usage: mesh.py [-h] [--resolution RESOLUTION]
+               [--font_path FONT_PATH] [--char_inv]
+               [--color_coded] [--save_fig OUTPUT_PATH]
+               {MC,NLP}
 ```
 
-If `-color_coded` option is not specified, the object will be saved, and if it is specified, it will be rendered.
-The difference between mesh.py and voxel.py is that mesh.py changes colors depending on the direction.
+If `--color_coded` is not specified, it will save the object as a stl file.
+If specified, it will render the object in different colors depending on the axis.
 
 ### Example: MC
 

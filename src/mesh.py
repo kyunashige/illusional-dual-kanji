@@ -79,7 +79,7 @@ class IllusionalMesh(IllusionalVoxels):
 
     def __visualize(self, ax):
         if self.path:
-            self.render(ax, self.mesh)
+            self.render(ax)
         else:
             facecolor = [0, 0, 0, 0.8]
             for i, view in enumerate(self.views):
@@ -111,10 +111,9 @@ class IllusionalMesh(IllusionalVoxels):
             self._get_modified_axes(ax, d)
             self.__visualize(ax)
 
-    @classmethod
-    def render(cls, ax, mesh):
-        ax.add_collection3d(Poly3DCollection(mesh.vectors))
-        scale = mesh.points.flatten()
+    def render(self, ax):
+        ax.add_collection3d(Poly3DCollection(self.mesh.vectors))
+        scale = self.mesh.points.flatten()
         ax.auto_scale_xyz(scale, scale, scale)
 
 
@@ -123,7 +122,7 @@ if __name__ == "__main__":
 
     iv, save_fig = choose_sample_iv()
     im = IllusionalMesh(iv)
-    if im.color_coded:
+    if im.color_coded or save_fig:
         im.visualize()
         if save_fig:
             fig_name = save_fig
