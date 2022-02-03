@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 
 from src.face import char_to_face, image_to_face
 from src.mesh import IllusionalMesh
@@ -74,15 +75,16 @@ if __name__ == "__main__":
         ).build(*faces, color_coded=args.color_coded)
         im = IllusionalMesh(iv)
         im.save()
-        if args.render:
+        if args.render or args.save_fig:
             iv.visualize()
             if args.save_fig:
                 fig_name = im.name + ".png"
+                print("Saving:", fig_name)
                 plt.savefig(fig_name)
                 print("Saved:", fig_name)
             else:
                 plt.show()
     else:
         path = get_path(args.object_name_or_path)
-        im = IllusionalMesh(path).visualize()
+        IllusionalMesh(path).visualize()
         plt.show()

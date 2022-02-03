@@ -1,13 +1,15 @@
+import collections
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 class IllusionalVoxels:
-    views = [
-        {"elev": 0, "azim": -90, "name": "Left"},
-        {"elev": 90, "azim": -90, "name": "Top"},
-        {"elev": 0, "azim": 0, "name": "Right"},
-    ]
+    views = collections.OrderedDict(
+        Left={"elev": 0, "azim": -90, "shift": 0},
+        Top={"elev": 90, "azim": -90, "shift": 1},
+        Right={"elev": 0, "azim": 0, "shift": 2},
+    )
 
     def __init__(self, size, use_mirror=True, name=None):
         self.size = size
@@ -58,30 +60,31 @@ class IllusionalVoxels:
         else:
             self.colors[self.voxels] = [0.2, 0.5, 0.1, 1]
 
+        print("Created (Voxel):", self.name)
         return self
 
     def __getitem__(self, i):
         if i == 0:
-            return self.has_cube1, self.cube1, self.views[0]
+            return self.has_cube1, self.cube1, "Left"
         elif i == 1:
-            return self.has_cube2, self.cube2, self.views[1]
+            return self.has_cube2, self.cube2, "Top"
         elif i == 2:
-            return self.has_cube3, self.cube3, self.views[2]
+            return self.has_cube3, self.cube3, "Right"
         else:
             raise IndexError
 
     @classmethod
-    def _get_modified_axes(self, ax, d=None):
+    def _get_modified_axes(self, ax, orientation=None):
         ax.set_box_aspect((1, 1, 1))
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.set_zticks([])
-        if d:
-            ax.view_init(d["elev"], d["azim"])
-            ax.set_title(d["name"])
+        ax.update({f"{c}ticks": [] for c in "xyz"})
+        if orientation:
+            view = self.views[orientation]
+            ax.view_init(view["elev"], view["azim"])
+            ax.set_title(orientation)
         return ax
 
     def visualize(self):
+        print("Rendering (Voxel):", self.name)
         plt.figure(figsize=(6, 9))
 
         ax = plt.subplot2grid((4, 3), (0, 0), rowspan=2, colspan=3, projection="3d")
@@ -91,13 +94,13 @@ class IllusionalVoxels:
         ax.set_box_aspect((1, 1, 1))
         ax.set_title(f"use_mirror: {self.use_mirror}")
 
-        for i, (exists, cube, d) in enumerate(self):
+        for i, (exists, cube, orientation) in enumerate(self):
             if exists:
                 ax_before = plt.subplot2grid((4, 3), (2, i), projection="3d")
                 self._get_modified_axes(ax_before)
                 ax_before.voxels(cube)
             ax_after = plt.subplot2grid((4, 3), (3, i), projection="3d")
-            self._get_modified_axes(ax_after, d)
+            self._get_modified_axes(ax_after, orientation)
             if self.color_coded:
                 ax_after.voxels(self.union, facecolors=self.colors)
             ax_after.voxels(self.voxels, facecolors=self.colors)
@@ -147,6 +150,7 @@ if __name__ == "__main__":
     iv.visualize()
     if save_fig:
         fig_name = save_fig
+        print("Saving:", fig_name)
         plt.savefig(fig_name)
         print("Saved:", fig_name)
     else:
